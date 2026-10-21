@@ -11,15 +11,5 @@ window.EVENTS = [
     description: "Texte de présentation de l'évènement.",
     image: "assets/img/placeholder.jpg",
     createurs: ["createur-exemple"]
-  },
-  {
-    id: "animation-exemple-1",
-    titre: "Animation d'exemple (à remplacer)",
-    type: "animation",
-    date: "2026-09-20",
-    lieu: "À définir",
-    description: "Texte de présentation de l'évènement passé.",
-    image: "assets/img/placeholder.jpg",
-    createurs: ["createur-exemple"]
   }
 ];
