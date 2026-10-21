@@ -1,0 +1,25 @@
+// Pour ajouter un évènement : copie un bloc, change les valeurs. Rien d'autre à toucher.
+// type : "defile" ou "animation" — date au format AAAA-MM-JJ
+// Un évènement passe tout seul de "À venir" à "Archives" quand sa date est dépassée.
+window.EVENTS = [
+  {
+    id: "defile-exemple-1",
+    titre: "Défilé d'exemple (à remplacer)",
+    type: "defile",
+    date: "2026-12-12",
+    lieu: "À définir",
+    description: "Texte de présentation de l'évènement.",
+    image: "assets/img/placeholder.jpg",
+    createurs: ["createur-exemple"]
+  },
+  {
+    id: "animation-exemple-1",
+    titre: "Animation d'exemple (à remplacer)",
+    type: "animation",
+    date: "2026-09-20",
+    lieu: "À définir",
+    description: "Texte de présentation de l'évènement passé.",
+    image: "assets/img/placeholder.jpg",
+    createurs: ["createur-exemple"]
+  }
+];

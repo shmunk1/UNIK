@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accueil — UNIK</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">Unik</a>
+  <nav>
+    <a href="index.html" class="active">Accueil</a>
+    <a href="evenements.html" >Évènements</a>
+    <a href="createurs.html" >Créateurs</a>
+  </nav>
+</header>
+<main>
+<section class="hero">
+  <h1>Unik</h1>
+  <p>Défilés, animations et créateurs : le stand mode, hier et demain.</p>
+</section>
+<h2>À venir</h2>
+<div class="grid" id="upcoming"></div>
+<h2>Derniers évènements</h2>
+<div class="grid" id="past"></div>
+</main>
+<footer>UNIK — projet scolaire</footer>
+<script src="js/data/creators.js"></script>
+<script src="js/data/events.js"></script>
+<script src="js/main.js"></script>
+<script>
+  render("#upcoming", EVENTS.filter(isUpcoming).sort(byDateAsc).slice(0, 3), eventCard, "Rien de prévu pour l'instant.");
+  render("#past", EVENTS.filter((e) => !isUpcoming(e)).sort(byDateDesc).slice(0, 3), eventCard, "Pas encore d'archives.");
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Évènements — UNIK</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">Unik</a>
+  <nav>
+    <a href="index.html" >Accueil</a>
+    <a href="evenements.html" class="active">Évènements</a>
+    <a href="createurs.html" >Créateurs</a>
+  </nav>
+</header>
+<main>
+<h2>Évènements</h2>
+<div class="tabs">
+  <button class="active" data-tab="upcoming">À venir</button>
+  <button data-tab="past">Archives</button>
+</div>
+<div class="grid" id="list"></div>
+</main>
+<footer>UNIK — projet scolaire</footer>
+<script src="js/data/creators.js"></script>
+<script src="js/data/events.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const views = {
+    upcoming: () => render("#list", EVENTS.filter(isUpcoming).sort(byDateAsc), eventCard, "Rien de prévu pour l'instant."),
+    past: () => render("#list", EVENTS.filter((e) => !isUpcoming(e)).sort(byDateDesc), eventCard, "Pas encore d'archives.")
+  };
+  document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach((x) => x.classList.toggle("active", x === b));
+    views[b.dataset.tab]();
+  }));
+  views.upcoming();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Créateurs — UNIK</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">Unik</a>
+  <nav>
+    <a href="index.html" >Accueil</a>
+    <a href="evenements.html" >Évènements</a>
+    <a href="createurs.html" class="active">Créateurs</a>
+  </nav>
+</header>
+<main>
+<h2>Créateurs</h2>
+<div class="grid" id="creators"></div>
+</main>
+<footer>UNIK — projet scolaire</footer>
+<script src="js/data/creators.js"></script>
+<script src="js/data/events.js"></script>
+<script src="js/main.js"></script>
+<script>
+  render("#creators", CREATORS, creatorCard, "Aucun créateur pour l'instant.");
+</script>
+</body>
+</html>
