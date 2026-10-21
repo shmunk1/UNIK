@@ -20,18 +20,33 @@
   <h1>Unik</h1>
   <p>Défilés, animations et créateurs : le stand mode, hier et demain.</p>
 </section>
-<h2>À venir</h2>
-<div class="grid" id="upcoming"></div>
-<h2>Derniers évènements</h2>
-<div class="grid" id="past"></div>
+<h2>Prochain évènement</h2>
+<div class="grid" id="next"></div>
+<h2>Entrez chez UNIK</h2>
+<div class="doors">
+  <a class="door" href="evenements.html">
+    <span class="door-num">01</span>
+    <h3>Voir les évènements</h3>
+    <p>Défilés et animations, à venir et passés.</p>
+  </a>
+  <a class="door" href="participer.html">
+    <span class="door-num">02</span>
+    <h3>Participer</h3>
+    <p>Créateur, mannequin ou visiteur : rejoignez le stand.</p>
+  </a>
+  <a class="door" href="a-propos.html">
+    <span class="door-num">03</span>
+    <h3>Découvrir le projet</h3>
+    <p>L'histoire d'UNIK, son équipe et son année.</p>
+  </a>
+</div>
 </main>
 <footer>UNIK — projet scolaire</footer>
 <script src="js/data/creators.js"></script>
 <script src="js/data/events.js"></script>
 <script src="js/main.js"></script>
 <script>
-  render("#upcoming", EVENTS.filter(isUpcoming).sort(byDateAsc).slice(0, 3), eventCard, "Rien de prévu pour l'instant.");
-  render("#past", EVENTS.filter((e) => !isUpcoming(e)).sort(byDateDesc).slice(0, 3), eventCard, "Pas encore d'archives.");
+  render("#next", EVENTS.filter(isUpcoming).sort(byDateAsc).slice(0, 1), eventCard, "Rien de prévu pour l'instant.");
 </script>
 </body>
 </html>

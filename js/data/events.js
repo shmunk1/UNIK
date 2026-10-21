@@ -6,7 +6,7 @@ window.EVENTS = [
     id: "defile-exemple-1",
     titre: "Défilé d'exemple (à remplacer)",
     type: "defile",
-    date: "2026-12-12",
+    date: "2026-06-13",
     lieu: "À définir",
     description: "Texte de présentation de l'évènement.",
     image: "assets/img/placeholder.jpg",
