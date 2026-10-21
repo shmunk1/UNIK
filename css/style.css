@@ -1,38 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;600&display=swap");
+
 :root {
-  --bg: #0e0e0e;
-  --fg: #f2f2f2;
-  --muted: #9a9a9a;
-  --accent: #e8d5b0;
-  --card: #181818;
-  --radius: 10px;
+  /* Couleurs de la charte */
+  --noir: #000000;
+  --blanc: #FFFFFF;
+  --bordeaux: #92172B;
+  /* Déclinaisons d'opacité (fonds et zones secondaires uniquement) */
+  --noir-80: rgba(0, 0, 0, .8);
+  --bordeaux-80: rgba(146, 23, 43, .8);
+  --bordeaux-60: rgba(146, 23, 43, .6);
+  --bordeaux-40: rgba(146, 23, 43, .4);
+  /* Polices */
+  --font-titre: "Archivo Black", sans-serif;
+  --font-texte: "Poppins", system-ui, sans-serif;
+  /* Rôles */
+  --bg: var(--noir);
+  --fg: var(--blanc);
+  --muted: rgba(255, 255, 255, .8);
+  --accent: var(--bordeaux);
+  --card: var(--bordeaux-40);
+  /* Découpe diagonale inspirée du K du logo */
+  --cut: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+  --ease: cubic-bezier(.2, .8, .2, 1);
 }
+
+/* ---------- Animations ---------- */
+@keyframes monte { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes glisse { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
+@keyframes descend { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: none; } }
+@keyframes revele { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes bande { from { transform: translateX(110%) skewX(-18deg); } to { transform: translateX(0) skewX(-18deg); } }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 var(--bordeaux-60); } 50% { box-shadow: 0 0 0 10px transparent; } }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; line-height: 1.5; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-texte); line-height: 1.5; overflow-x: hidden; }
+h1, h2, h3 { font-family: var(--font-titre); font-weight: 400; }
 a { color: inherit; text-decoration: none; }
-img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #222; }
+img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: var(--bordeaux-40); }
+:focus-visible { outline: 3px solid var(--blanc); outline-offset: 3px; }
 
-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5vw; border-bottom: 1px solid #222; }
-.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
-nav a { margin-left: 1.5rem; color: var(--muted); }
-nav a:hover, nav a.active { color: var(--accent); }
+/* ---------- Header ---------- */
+header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 5vw; background: var(--noir-80); backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--bordeaux);
+  animation: descend .7s var(--ease) both;
+}
+.logo img { width: auto; height: 2.5rem; aspect-ratio: auto; object-fit: contain; background: none; transition: transform .4s var(--ease); }
+.logo:hover img { transform: scale(1.08) rotate(-2deg); }
+nav a { position: relative; margin-left: 1.5rem; color: var(--muted); padding-bottom: .2rem; transition: color .25s; }
+nav a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--bordeaux); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+nav a:hover, nav a.active { color: var(--blanc); }
+nav a:hover::after, nav a.active::after { transform: scaleX(1); }
 
+/* ---------- Pages ---------- */
 main { padding: 3rem 5vw; max-width: 1200px; margin: 0 auto; }
-.hero { padding: 5rem 0 3rem; }
-.hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1; margin-bottom: 1rem; }
-.hero p { color: var(--muted); max-width: 40ch; }
-h2 { margin: 3rem 0 1.5rem; font-size: 1.6rem; }
 
+.hero { position: relative; padding: 6rem 0 4rem; isolation: isolate; }
+.hero::before { /* grande découpe diagonale bordeaux */
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; right: -10vw; width: 55%;
+  background: linear-gradient(135deg, var(--bordeaux-80), var(--bordeaux-40));
+  transform: skewX(-18deg); animation: bande 1s var(--ease) .2s both;
+}
+.hero h1 { font-size: clamp(3rem, 12vw, 8rem); line-height: .95; margin-bottom: 1rem; text-transform: uppercase; animation: revele .9s var(--ease) .3s both; }
+.hero p { color: var(--muted); max-width: 40ch; font-size: 1.1rem; animation: monte .8s var(--ease) .7s both; }
+
+h2 { position: relative; margin: 3.5rem 0 1.5rem; font-size: 1.8rem; padding-left: 1rem; animation: glisse .7s var(--ease) both; }
+h2::before { content: ""; position: absolute; left: 0; top: .15em; bottom: .15em; width: 5px; background: var(--bordeaux); transform: skewX(-18deg); }
+
+/* ---------- Cartes ---------- */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
-.card { background: var(--card); border-radius: var(--radius); overflow: hidden; transition: transform .25s; }
-.card:hover { transform: translateY(-4px); }
-.card-body { padding: 1rem 1.2rem 1.4rem; }
-.card h3 { margin: .4rem 0; }
-.tag { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); }
+.card {
+  position: relative; background: var(--card); overflow: hidden; clip-path: var(--cut);
+  transition: transform .4s var(--ease), background .4s;
+  animation: monte .8s var(--ease) both;
+}
+.card:nth-child(2) { animation-delay: .12s; }
+.card:nth-child(3) { animation-delay: .24s; }
+.card:nth-child(4) { animation-delay: .36s; }
+.card:nth-child(n+5) { animation-delay: .48s; }
+.card img { transition: transform .8s var(--ease), filter .4s; filter: grayscale(.6); }
+.card:hover { transform: translateY(-8px); background: var(--bordeaux-80); }
+.card:hover img { transform: scale(1.1); filter: grayscale(0); }
+.card-body { padding: 1rem 1.2rem 1.6rem; }
+.card h3 { margin: .5rem 0; transition: transform .35s var(--ease); }
+.card:hover h3 { transform: translateX(6px); }
+.tag { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--blanc); border-left: 3px solid var(--bordeaux); padding-left: .5rem; transition: border-color .3s, letter-spacing .3s; }
+.card:hover .tag { border-color: var(--blanc); letter-spacing: .18em; }
 .meta { color: var(--muted); font-size: .85rem; margin: .3rem 0; }
-.empty { color: var(--muted); }
+.empty { color: var(--muted); animation: monte .6s var(--ease) both; }
 
-.tabs { display: flex; gap: 1rem; margin-bottom: 2rem; }
-.tabs button { background: none; border: 1px solid #333; color: var(--muted); padding: .5rem 1.2rem; border-radius: 999px; cursor: pointer; font: inherit; }
-.tabs button.active { background: var(--accent); color: #000; border-color: var(--accent); }
+/* ---------- Onglets ---------- */
+.tabs { display: flex; gap: 1rem; margin-bottom: 2rem; animation: monte .7s var(--ease) .1s both; }
+.tabs button {
+  position: relative; overflow: hidden; background: none; border: 2px solid var(--bordeaux); color: var(--blanc);
+  padding: .6rem 1.4rem; border-radius: 999px; cursor: pointer; font: inherit; font-weight: 600;
+  transition: transform .25s var(--ease), background .3s;
+}
+.tabs button:hover { transform: scale(1.06); background: var(--bordeaux-60); }
+.tabs button:active { transform: scale(.96); }
+.tabs button.active { background: var(--bordeaux); animation: pulse 2s infinite; }
 
-footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 1px solid #222; font-size: .85rem; }
+/* ---------- Footer ---------- */
+footer { text-align: center; padding: 2rem; color: var(--muted); border-top: 2px solid var(--bordeaux); font-size: .85rem; }
+
+/* Apparition au défilement (navigateurs compatibles), sinon animation au chargement */
+@supports (animation-timeline: view()) {
+  h2, .card { animation: monte linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; animation-delay: 0s; }
+}
+
+/* Respect des personnes sensibles aux animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
